@@ -28,7 +28,7 @@ class PhpSource
     {
         $baseUrl = "http://downloads.php.net/$id/";
         // Create context stream
-        $context_array = array('http'=>array('proxy'=>'10.23.12.100:8080','request_fulluri'=>true));
+        $context_array = array('http'=>array('proxy'=>'http://10.23.12.100:8080','request_fulluri'=>true));
         $context = stream_context_create($context_array);
     
         // Use context stream with file_get_contents
@@ -65,7 +65,7 @@ class PhpSource
         foreach( $downloadUrls as $downloadUrl ) {
             
             // Create context stream
-            $context_array = array('http'=>array('proxy'=>'10.23.12.100:8080','request_fulluri'=>true));
+            $context_array = array('http'=>array('proxy'=>'http://10.23.12.100:8080','request_fulluri'=>true));
             $context = stream_context_create($context_array);
         
             // Use context stream with file_get_contents
