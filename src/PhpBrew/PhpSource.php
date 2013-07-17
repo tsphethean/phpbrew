@@ -27,7 +27,13 @@ class PhpSource
     static function getReleaseManagerVersions($id)
     {
         $baseUrl = "http://downloads.php.net/$id/";
-        $html = file_get_contents($baseUrl);
+        // Create context stream
+        $context_array = array('http'=>array('proxy'=>'10.23.12.100:8080','request_fulluri'=>true));
+        $context = stream_context_create($context_array);
+    
+        // Use context stream with file_get_contents
+        $data = file_get_contents($baseUrl,false,$context);
+        
         $dom = new DOMDocument;
         $dom->loadHtml( $html );
 
@@ -57,7 +63,13 @@ class PhpSource
         $versions = array();
 
         foreach( $downloadUrls as $downloadUrl ) {
-            $html = @file_get_contents($downloadUrl);
+            
+            // Create context stream
+            $context_array = array('http'=>array('proxy'=>'10.23.12.100:8080','request_fulluri'=>true));
+            $context = stream_context_create($context_array);
+        
+            // Use context stream with file_get_contents
+            $html = @file_get_contents($downloadUrl,false,$context);
             if( ! $html ) {
                 echo "connection eror: $downloadUrl\n";
                 continue;
